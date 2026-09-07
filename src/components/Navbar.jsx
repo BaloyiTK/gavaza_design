@@ -43,7 +43,10 @@ export default function Navbar() {
           setActiveSection(visible.target.id);
         }
       },
-      { rootMargin: "-20% 0px -55% 0px", threshold: [0.15, 0.4, 0.7] }
+      {
+        rootMargin: "-20% 0px -55% 0px",
+        threshold: [0.15, 0.4, 0.7],
+      }
     );
 
     SECTIONS.forEach((id) => {
@@ -102,17 +105,17 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6">
-        {/* Logo - larger for better visibility */}
+        {/* Logo */}
         <button
           type="button"
           onClick={() => goTo("home")}
-          className="flex items-center"
+          className="flex shrink-0 items-center"
           aria-label="Go to home"
         >
           <img
             src={logo}
             alt="Gavaza Sesinyani Designs"
-            className="h-12 w-auto object-contain transition duration-300 hover:scale-105 sm:h-14 md:h-16"
+            className="h-16 w-auto max-w-none object-contain transition duration-300 hover:scale-105 sm:h-[4.5rem] md:h-20 lg:h-[5.5rem]"
           />
         </button>
 
@@ -125,6 +128,7 @@ export default function Navbar() {
           >
             Home
           </button>
+
           <button
             type="button"
             onClick={() => goTo("about")}
@@ -132,6 +136,7 @@ export default function Navbar() {
           >
             About
           </button>
+
           <button
             type="button"
             onClick={() => goTo("gallery")}
@@ -176,7 +181,9 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
-          className={`lg:hidden ${isSolid ? "text-[#C89B5C]" : "text-white"}`}
+          className={`lg:hidden ${
+            isSolid ? "text-[#C89B5C]" : "text-white"
+          }`}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
@@ -191,7 +198,10 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.28,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="overflow-hidden border-t border-gray-100 bg-white lg:hidden"
           >
             <div className="flex flex-col gap-1 px-4 py-6 sm:px-6">
@@ -205,6 +215,7 @@ export default function Navbar() {
               >
                 Home
               </button>
+
               <button
                 type="button"
                 onClick={() => goTo("about")}
@@ -215,6 +226,7 @@ export default function Navbar() {
               >
                 About
               </button>
+
               <button
                 type="button"
                 onClick={() => goTo("gallery")}
