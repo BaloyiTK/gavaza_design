@@ -25,19 +25,7 @@ const featuredDesigns = [
     name: "African Heritage",
     category: "Traditional Wear",
     image: "trad2.jpg",
-  },
-  {
-    id: 5,
-    name: "Modern Aprons",
-    category: "Aprons",
-    image: "/images/design5.jpg",
-  },
-  {
-    id: 6,
-    name: "Family Collection",
-    category: "Family",
-    image: "/images/design6.jpg",
-  },
+  }
 ];
 
 export default function GalleryPreview() {
