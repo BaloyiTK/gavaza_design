@@ -19,15 +19,24 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const location = useLocation();
   const navigate = useNavigate();
-  const onGalleryPage = location.pathname === "/gallery";
 
+  const onGalleryPage = location.pathname === "/gallery";
   const isSolid = scrolled || open || onGalleryPage;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -37,7 +46,10 @@ export default function Navbar() {
       (entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          .sort(
+            (a, b) =>
+              b.intersectionRatio - a.intersectionRatio
+          )[0];
 
         if (visible?.target?.id) {
           setActiveSection(visible.target.id);
@@ -51,7 +63,10 @@ export default function Navbar() {
 
     SECTIONS.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) observer.observe(el);
+
+      if (el) {
+        observer.observe(el);
+      }
     });
 
     return () => observer.disconnect();
@@ -59,6 +74,7 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -83,10 +99,11 @@ export default function Navbar() {
   };
 
   const linkClass = (section, isMobile = false) => {
-    const isActive = !onGalleryPage && activeSection === section;
+    const isActive =
+      !onGalleryPage && activeSection === section;
 
     if (isActive) {
-      return "text-[#C89B5C] font-semibold transition duration-300";
+      return "font-semibold text-[#C89B5C] transition duration-300";
     }
 
     if (isMobile || isSolid) {
@@ -98,14 +115,17 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${
+      className={`fixed left-0 top-0 z-50 w-full transition-all duration-500 ${
         isSolid
-          ? "bg-white/95 py-3 shadow-md backdrop-blur-md"
-          : "bg-transparent py-4 sm:py-5"
+          ? "bg-white/95 py-2 shadow-md backdrop-blur-md sm:py-2.5"
+          : "bg-transparent py-3 sm:py-4"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6">
-        {/* Logo */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+
+        {/* =========================
+            LOGO
+        ========================== */}
         <button
           type="button"
           onClick={() => goTo("home")}
@@ -115,12 +135,27 @@ export default function Navbar() {
           <img
             src={logo}
             alt="Gavaza Sesinyani Designs"
-            className="h-16 w-auto max-w-none object-contain transition duration-300 hover:scale-105 sm:h-[4.5rem] md:h-20 lg:h-[5.5rem]"
+            className="
+              h-auto
+              w-[105px]
+              max-w-none
+              object-contain
+              transition-transform
+              duration-300
+              hover:scale-105
+
+              sm:w-[125px]
+              md:w-[140px]
+              lg:w-[155px]
+            "
           />
         </button>
 
-        {/* Desktop Navigation */}
-        <div className="hidden items-center gap-6 lg:flex lg:gap-8">
+        {/* =========================
+            DESKTOP NAVIGATION
+        ========================== */}
+        <div className="hidden items-center gap-6 lg:flex xl:gap-8">
+
           <button
             type="button"
             onClick={() => goTo("home")}
@@ -170,41 +205,82 @@ export default function Navbar() {
             href={WHATSAPP}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full bg-[#C89B5C] px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-[#b08a4f]"
+            className="
+              flex
+              items-center
+              gap-2
+              rounded-full
+              bg-[#C89B5C]
+              px-5
+              py-2.5
+              text-sm
+              font-semibold
+              text-black
+              transition
+              hover:bg-[#b08a4f]
+            "
           >
             <ShoppingBag size={16} />
             Order
           </a>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* =========================
+            MOBILE MENU BUTTON
+        ========================== */}
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           className={`lg:hidden ${
-            isSolid ? "text-[#C89B5C]" : "text-white"
+            isSolid
+              ? "text-[#C89B5C]"
+              : "text-white"
           }`}
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={
+            open ? "Close menu" : "Open menu"
+          }
           aria-expanded={open}
         >
-          {open ? <X size={26} /> : <Menu size={26} />}
+          {open ? (
+            <X size={28} />
+          ) : (
+            <Menu size={28} />
+          )}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* =========================
+          MOBILE MENU
+      ========================== */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{
+              opacity: 0,
+              height: 0,
+            }}
+            animate={{
+              opacity: 1,
+              height: "auto",
+            }}
+            exit={{
+              opacity: 0,
+              height: 0,
+            }}
             transition={{
               duration: 0.28,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="overflow-hidden border-t border-gray-100 bg-white lg:hidden"
+            className="
+              overflow-hidden
+              border-t
+              border-gray-100
+              bg-white
+              lg:hidden
+            "
           >
             <div className="flex flex-col gap-1 px-4 py-6 sm:px-6">
+
               <button
                 type="button"
                 onClick={() => goTo("home")}
@@ -265,10 +341,22 @@ export default function Navbar() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 rounded-full bg-[#C89B5C] py-3.5 text-center text-sm font-semibold text-black transition hover:bg-[#b08a4f]"
+                className="
+                  mt-4
+                  rounded-full
+                  bg-[#C89B5C]
+                  py-3.5
+                  text-center
+                  text-sm
+                  font-semibold
+                  text-black
+                  transition
+                  hover:bg-[#b08a4f]
+                "
               >
                 Order on WhatsApp
               </a>
+
             </div>
           </motion.div>
         )}

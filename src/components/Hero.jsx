@@ -21,12 +21,12 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 pb-16 sm:px-6 sm:pt-28 md:pt-32">
-        <motion.p
+        {/* <motion.p
           {...fadeUp(0)}
           className="mb-3 text-xs font-medium uppercase tracking-[0.28em] text-[#C89B5C] sm:mb-4 sm:text-sm"
         >
           Gavaza Sesinyani Designs
-        </motion.p>
+        </motion.p> */}
 
         <motion.h1
           {...fadeUp(0.1)}
